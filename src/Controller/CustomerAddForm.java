@@ -1,5 +1,6 @@
 package Controller;
 
+import DB.DBConnection;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,7 +58,7 @@ public class CustomerAddForm implements Initializable {
     @FXML
     private TextField txtSalary;
 
-    List<Customer> customerList = new ArrayList<>();
+//    List<Customer> customerList = new ArrayList<>();
 
     @FXML
     void btnAddCustomerOnAction(ActionEvent event) {
@@ -71,7 +72,7 @@ public class CustomerAddForm implements Initializable {
 //        System.out.println(id + name + title + dateOfBirth + address + salary);
         Customer customer = new Customer(id, name, title, address, dateOfBirth, salary);
 
-        customerList.add(customer);
+        DBConnection.getInstance().getConnection().add(customer);
 
         loadTable();
     }
@@ -101,7 +102,7 @@ public class CustomerAddForm implements Initializable {
         colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
         colSalary.setCellValueFactory((new PropertyValueFactory<>("salary")));
 
-        customerList.forEach(obj ->{
+        DBConnection.getInstance().getConnection().forEach(obj ->{
 
             cutomerObserverList.add(obj);
         });
